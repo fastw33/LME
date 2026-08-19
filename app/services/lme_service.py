@@ -346,8 +346,8 @@ def _latest_success_by_metal() -> dict[str, dict]:
                 WHERE p.status = 'ok'
                 ORDER BY
                     DATE(p.scraped_at) DESC,
-                    CASE WHEN p.source_name = 'LME.com' THEN 0 ELSE 1 END ASC,
                     p.scraped_at DESC,
+                    CASE WHEN p.source_name = 'LME.com' THEN 0 ELSE 1 END ASC,
                     p.price_id DESC
                 """
             )
@@ -415,7 +415,7 @@ def build_prices_payload(*, from_cache: bool = False, message: str = "", error: 
     return {
         "metals": metals,
         "source": " + ".join(source_names) if source_names else "LME.com",
-        "priceBasis": "Precio origen por fuente. LME usa 3-month Closing Price; SMM usa 1# Tungsten bar convertido de USD/kg a USD/t.",
+        "priceBasis": "Precio origen por fuente. LME.com usa 3-month Closing Price; Westmetall usa Official LME 3-month como respaldo; SMM usa 1# Tungsten bar convertido de USD/kg a USD/t.",
         "currency": "USD",
         "unit": "mt",
         "unitLabel": "tonelada métrica",

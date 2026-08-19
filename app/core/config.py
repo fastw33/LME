@@ -45,6 +45,10 @@ class Settings:
         "ALLOY_UPDATE_URL",
         "http://127.0.0.1:4060/api/aleaciones/actualizar-precios",
     )
+    alloy_update_internal_service_key: str = os.getenv(
+        "ALLOY_UPDATE_INTERNAL_SERVICE_KEY",
+        internal_service_key,
+    )
 
 
 @lru_cache

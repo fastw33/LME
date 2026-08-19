@@ -38,9 +38,10 @@ def _failure_summary(failures: list[dict]) -> str:
 
 
 def _post_alloy_auto_update(url: str) -> dict | None:
+    settings = get_settings()
     payload = json.dumps({"refreshRates": True}).encode("utf-8")
     headers = {"Content-Type": "application/json"}
-    internal_key = get_settings().internal_service_key.strip()
+    internal_key = settings.alloy_update_internal_service_key.strip()
     if internal_key:
         headers["X-Internal-Service-Key"] = internal_key
 

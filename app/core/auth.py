@@ -41,8 +41,16 @@ def verify_request(request: Request) -> dict:
         raise _unauthorized("Token invalido o expirado") from exc
 
 
+def _is_public_path(path: str) -> bool:
+    settings = get_settings()
+    return path.rstrip("/") in {item.rstrip("/") for item in settings.auth_public_paths}
+
+
 async def auth_http_middleware(request: Request, call_next):
     if request.method == "OPTIONS":
+        return await call_next(request)
+
+    if _is_public_path(request.url.path):
         return await call_next(request)
 
     try:

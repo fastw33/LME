@@ -30,6 +30,7 @@ class Settings:
     cors_allow_methods: list[str] = _csv_env("CORS_ALLOW_METHODS")
     cors_allow_headers: list[str] = _csv_env("CORS_ALLOW_HEADERS")
     cors_allow_credentials: bool = _bool_env("CORS_ALLOW_CREDENTIALS")
+    auth_public_paths: list[str] = _csv_env("AUTH_PUBLIC_PATHS") or ["/api/health"]
     timezone: str = os.getenv("TIMEZONE", "America/Bogota")
     db_host: str = os.getenv("DB_HOST", "localhost")
     db_port: int = int(os.getenv("DB_PORT", "3306"))
